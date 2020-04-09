@@ -10,8 +10,10 @@ def fibo(i):
 
 n=int(n)
 for i in range(n):
-	print(fibo(i),end=" ")
 	if(i == n-1):
+		print(fibo(i))
 		final = fibo(i)
+		break
+	print(fibo(i),end=",")
 
 print("\nF{0}={1}".format(n,final))
