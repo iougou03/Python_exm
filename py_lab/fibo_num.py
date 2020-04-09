@@ -16,4 +16,4 @@ for i in range(n):
 		break
 	print(fibo(i),end=",")
 
-print("\nF{0}={1}".format(n,final))
+print("F{0}={1}".format(n,final))
