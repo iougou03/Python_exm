@@ -33,6 +33,6 @@ for key, val in topRank:
 	rank = f'{key:10}=>{val:>5}'    
 	print(rank)
 	count += 1
-	if(count>number): break
+	if(count>=number): break
 
 fhand.close()
