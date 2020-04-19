@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import sys
+import re
 
 try:
 	fhand = open(str(sys.argv[1]),'r')
@@ -20,7 +21,11 @@ wordCount=dict()
 while(True):
 	line =fhand.readline()
 	if not line: break
-	for i in line.split():
+
+	line = line.lower()
+	words = re.findall("[a-z]+",line)
+	if not words: continue
+	for i in words:
 		if(wordCount.get(i,"N")=="N"):
 			wordCount[i] =1
 		else:
