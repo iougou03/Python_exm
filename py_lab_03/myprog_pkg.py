@@ -3,8 +3,8 @@ import my_pkg.module01 as m1
 from my_pkg.module02 import find_common_factor 
 
 def conversion():
-	bi_num = int(input("input binary number : "),2)
 	try:
+		bi_num = int(input("input binary number : "),2)
 		m1.bin_conversion(bi_num)
 	except(ValueError):
 		bi_num =print("Error, please type binary number")
