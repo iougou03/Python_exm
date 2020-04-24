@@ -8,7 +8,7 @@ def conversion():
 		m1.bin_conversion(bi_num)
 	except(ValueError):
 		bi_num =print("Error, please type binary number")
-
+		conversion()
 
 select_menu = ["conversion","union/intersection","exit ?"]
 
