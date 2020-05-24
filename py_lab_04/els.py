@@ -4,20 +4,23 @@ import requests, elasticsearch, re
 from bs4 import BeautifulSoup
 import json
 from collections import OrderedDict #값을 넣은 순서대로 dict이 출력됨( 기존의 dict은 무작위로 출력했음 )
+from elasticsearch import Elasticsearch
 
 URL = "https://cassandra.apache.org/"
 req = requests.get(URL)
 html = req.text
 soup=BeautifulSoup(html,"html.parser")
 
-head_sentence_list=soup.select(
+sentence_list_01=soup.select(
     "body > div.topnav > nav > div > div.jumbotron > h1"
 )
-body_sentence_list=soup.select(
-    "body > div.feature-list-group > div p"
+sentence_list_02=soup.select(
+    'p'
 )
-
-sentence_list=[h.get_text() for h in head_sentence_list] + [b.get_text() for b in body_sentence_list]
+sentence_list_03=soup.select(
+   'h4'
+)
+sentence_list=[h.get_text() for h in sentence_list_01] + [b.get_text() for b in sentence_list_02] + [ bt.get_text() for bt in sentence_list_03]
 
 word_fre_num=OrderedDict()
 words_frequecy=OrderedDict()
@@ -41,6 +44,9 @@ with open("words_freq.json",'w',encoding="utf-8") as mkf:
 
 es_host="127.0.0.1"
 es_port="9200"
+
 if __name__ == '__main__':
+    with open('words_freq.json','r') as w:
+        jf=json.load(w)
     es=Elasticsearch([{'host':es_host,'port':es_port}],timeout=10)
-    res = es.index(index='web', doc_type='word', id=1)
+    res=es.index(index='web',doc_type='word',id=1,body=jf)
